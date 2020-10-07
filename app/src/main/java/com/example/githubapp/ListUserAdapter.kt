@@ -3,10 +3,14 @@ package com.example.githubapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
-class ListUserAdapter :RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
+class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -24,7 +28,7 @@ class ListUserAdapter :RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     }
 
     //inisiasi layout untuk setiap view holder
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListUserAdapter.ListViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_user, parent, false)
         return ListViewHolder(view)
     }
@@ -45,18 +49,18 @@ class ListUserAdapter :RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     inner class ListViewHolder(itemView: View ) : RecyclerView.ViewHolder(itemView) {
         var githubUsername: TextView = itemView.findViewById(R.id.tv_username)
         var githubName: TextView = itemView.findViewById(R.id.tv_name)
-        var githubAvatar: TextView = itemView.findViewById(R.id.img_item_photo)
-        var githubBtn: TextView = itemView.findViewById(R.id.btn_details)
+        var githubAvatar: ImageView = itemView.findViewById(R.id.img_item_photo)
+        var githubBtn: Button = itemView.findViewById(R.id.btn_details)
 
         fun bind(github: Github, clickListener: OnItemClickCallback) {
             githubBtn.setOnClickListener {
                 clickListener.onItemClick(github)
             }
 
-//            Glide.with(itemView.context)
-//                .load(github.avatar)
-//                .apply(RequestOptions().override(60, 70))
-////                .into(githubAvatar)
+            Glide.with(itemView.context)
+                .load(github.avatar)
+                .apply(RequestOptions().override(60, 70))
+                .into(githubAvatar)
 
             githubUsername.text = github.username
             githubName.text = github.name

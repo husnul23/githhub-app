@@ -18,11 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(false)
-        }
-
         githubUsers = findViewById(R.id.rv_github)
         githubUsers.setHasFixedSize(true)
 

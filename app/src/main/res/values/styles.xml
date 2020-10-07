@@ -7,11 +7,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="no_bar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="no_bar" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
 </resources>
