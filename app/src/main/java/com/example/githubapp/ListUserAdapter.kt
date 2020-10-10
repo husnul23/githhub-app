@@ -47,10 +47,10 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     }
 
     inner class ListViewHolder(itemView: View ) : RecyclerView.ViewHolder(itemView) {
-        var githubUsername: TextView = itemView.findViewById(R.id.tv_username)
-        var githubName: TextView = itemView.findViewById(R.id.tv_name)
-        var githubAvatar: ImageView = itemView.findViewById(R.id.img_item_photo)
-        var githubBtn: Button = itemView.findViewById(R.id.btn_details)
+        private var githubUsername: TextView = itemView.findViewById(R.id.tv_username)
+        private var githubName: TextView = itemView.findViewById(R.id.tv_name)
+        private var githubAvatar: ImageView = itemView.findViewById(R.id.img_item_photo)
+        private var githubBtn: Button = itemView.findViewById(R.id.btn_details)
 
         fun bind(github: Github, clickListener: OnItemClickCallback) {
             githubBtn.setOnClickListener {
