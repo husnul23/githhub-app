@@ -107,6 +107,44 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
+    private fun getfollowings(username: String?) {
+        val client = AsyncHttpClient()
+        val url = "https://api.github.com/search/users?q=$username"
+        client.addHeader("Authorization", DetailActivity.USER_TOKEN)
+        client.addHeader("User-Agent", "request")
+        client.get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray
+            ) {
+                val result = String(responseBody)
+                Log.d(DetailActivity.TAG, result)
+                try {
+                    val item = JSONObject(result)
+
+                    val followingsList = item.getString("followings_url")
+                    val user = Github()
+                    user.followings = followingsList
+                    Log.d(TAG, "onSuccess: Selesai....")
+
+                } catch (e: Exception) {
+                    Log.d(TAG, "onSuccess: Gagal......")
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "onFailure: Gagal .....")
+            }
+        })
+    }
+
     private fun getUserDetail(username: String?) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/search/users?q=$username"
