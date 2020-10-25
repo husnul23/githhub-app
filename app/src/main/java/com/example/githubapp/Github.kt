@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Github (
     var username: String = "",
     var name: String = "",
-    var avatar: Int = 0,
+    var avatar: String = "",
     var company: String = "",
     var repository: String = "",
     var followers: String = "",

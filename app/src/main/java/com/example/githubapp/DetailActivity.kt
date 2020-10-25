@@ -1,19 +1,83 @@
 package com.example.githubapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.loopj.android.http.AsyncHttpClient
+import com.loopj.android.http.AsyncHttpResponseHandler
+import cz.msebera.android.httpclient.Header
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.detail_user.*
 import kotlinx.android.synthetic.main.toolbar.*
+import org.json.JSONObject
+import java.lang.Exception
 
 class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_GITHUB = "extra_github"
+        private val TAG = DetailActivity::class.java.simpleName
+        const val USER_TOKEN = "76804862f46181ed1aaa82cf10ca8c691193b982"
     }
 
     lateinit var github: Github
+
+    private fun getUserDetail(username: String?) {
+        val client = AsyncHttpClient()
+        val url = "https://api.github.com/search/users?q=$username"
+        client.addHeader("Authorization", DetailActivity.USER_TOKEN)
+        client.addHeader("User-Agent", "request")
+        client.get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray
+            ) {
+                val result = String(responseBody)
+                Log.d(DetailActivity.TAG, result)
+                try {
+                    val item = JSONObject(result)
+
+                    val username = item.getString("login")
+                    val avatar = item.getString("avatar_url")
+                    val followersList = item.getString("followers_url")
+                    val followingsList = item.getString("followings_url")
+                    val location = item.getString("location")
+                    val company = item.getString("company")
+                    val fullName = item.getString("name")
+                    val totalRepos = item.getString("public_repos")
+
+                    val user = Github()
+                    user.username = username
+                    user.avatar = avatar
+                    user.followers = followersList
+                    user.followings = followingsList
+                    user.location = location
+                    user.company = company
+                    user.name = fullName
+                    user.repository = totalRepos
+
+                    Log.d(TAG, "onSuccess: Selesai....")
+
+                } catch (e: Exception) {
+                    Log.d(TAG, "onSuccess: Gagal......")
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "onFailure: Gagal .....")
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -53,4 +117,8 @@ class DetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+}
+
+private fun CircleImageView.setImageResource(avatar: String) {
+
 }
