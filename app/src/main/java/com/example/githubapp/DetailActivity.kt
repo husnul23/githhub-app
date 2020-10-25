@@ -25,6 +25,88 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var github: Github
 
+    private fun searchUsers(username: String?) {
+        val client = AsyncHttpClient()
+        val url = "https://api.github.com/search/users?q={$username}"
+        client.addHeader("Authorization", DetailActivity.USER_TOKEN)
+        client.addHeader("User-Agent", "request")
+        client.get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray
+            ) {
+                val listUser = ArrayList<Github>()
+                val result = String(responseBody)
+                Log.d(TAG, result)
+                try {
+                    val responseObject = JSONObject(result)
+                    val items = responseObject.getJSONArray("items")
+
+                    for (i in 0 until items.length()) {
+                        val item = items.getJSONObject(i)
+                        val username = item.getString("login")
+                        val avatar = item.getString("avatar_url")
+                        val user = Github()
+
+                        user.username = username
+                        user.avatar = avatar
+                        listUser.add(user)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray?,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "onFailure: Gagal .....")
+            }
+        })
+    }
+
+    private fun getfollowers(username: String?) {
+        val client = AsyncHttpClient()
+        val url = "https://api.github.com/search/users?q=$username"
+        client.addHeader("Authorization", DetailActivity.USER_TOKEN)
+        client.addHeader("User-Agent", "request")
+        client.get(url, object : AsyncHttpResponseHandler() {
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray
+            ) {
+                val result = String(responseBody)
+                Log.d(DetailActivity.TAG, result)
+                try {
+                    val item = JSONObject(result)
+
+                    val followersList = item.getString("followers_url")
+                    val user = Github()
+                    user.followers = followersList
+                    Log.d(TAG, "onSuccess: Selesai....")
+
+                } catch (e: Exception) {
+                    Log.d(TAG, "onSuccess: Gagal......")
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseBody: ByteArray,
+                error: Throwable?
+            ) {
+                Log.d(TAG, "onFailure: Gagal .....")
+            }
+        })
+    }
+
     private fun getUserDetail(username: String?) {
         val client = AsyncHttpClient()
         val url = "https://api.github.com/search/users?q=$username"
