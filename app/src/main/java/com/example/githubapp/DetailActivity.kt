@@ -50,23 +50,19 @@ class DetailActivity : AppCompatActivity() {
         val githubName = findViewById<TextView>(R.id.tv_detail_name)
         val githubUsername = findViewById<TextView>(R.id.tv_detail_username)
         val githubLocation = findViewById<TextView>(R.id.tv_detail_location)
-        val githubFollowers = findViewById<TextView>(R.id.tv_detail_followers)
-        val githubFollowings = findViewById<TextView>(R.id.tv_detail_followings)
         val githubCompany = findViewById<TextView>(R.id.tv_detail_company)
         val githubRepository = findViewById<TextView>(R.id.tv_detail_repository)
 
-        githubName.text = github.name
+//        githubName.text = github.name
         githubUsername.text = github.username
         githubLocation.text = github.location
-        githubFollowers.text = github.followers
-        githubFollowings.text = github.followings
         githubCompany.text = github.company
         githubRepository.text = github.repository
         imgProfilePict.setImageResource(github.avatar)
 
         val username = String()
 
-        getUserDetail(username)
+        getUserDetail(github.username)
 
 
     }
@@ -85,9 +81,13 @@ class DetailActivity : AppCompatActivity() {
                 responseBody: ByteArray
             ) {
                 val result = String(responseBody)
+
                 Log.d(DetailActivity.TAG, result)
+//                progressBar.visibility = View.INVISIBLE
                 try {
-                    progressBar.visibility = View.INVISIBLE
+//
+                    val responseObject = JSONObject(result)
+                    val items = responseObject.getJSONArray("items")
 
                     val item = JSONObject(result)
 
