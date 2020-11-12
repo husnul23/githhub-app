@@ -5,14 +5,11 @@ object  UserData {
     "romainguy", "chrisbanes", "tipsy", "ravi8x", "jasoet",
     "budioktavian", "handisantika", "sidiqpermana")
 
-
     private val fullNames = arrayOf("Jake Wharton", "Amit Shekhar", "Romain Guy",
     "Chris Banes", "David", "Ravi Tamada", "Deny Prasetyo", "Budi Oktavian", "Hendi Santika",
     "Sidiq Permana")
 
-    private val avatarImages = arrayOf(R.drawable.user1, R.drawable.user2,
-        R.drawable.user3, R.drawable.user4, R.drawable.user5, R.drawable.user6,
-        R.drawable.user7, R.drawable.user8, R.drawable.user9, R.drawable.user10)
+    private val avatarImages = arrayOf("user1", "user2", "user3", "user4", "user5", "user6", "user7", "user8", "user9", "user10")
 
     private val userCompanies = arrayOf("Google, Inc.", "MindOrksOpenSource", "Google",
     "Google working on @android", "Working Group Two", "AndroidHive | Droid5", "gojek-engineering",

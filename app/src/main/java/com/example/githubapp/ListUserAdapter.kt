@@ -28,6 +28,7 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     }
 
     //inisiasi layout untuk setiap view holder
+    //untuk nampilin layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.item_row_user, parent, false)
         return ListViewHolder(view)
@@ -46,6 +47,7 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
         fun onItemClick(data: Github)
     }
 
+    //untuk nampilin komponen di layout
     inner class ListViewHolder(itemView: View ) : RecyclerView.ViewHolder(itemView) {
         private var githubUsername: TextView = itemView.findViewById(R.id.tv_username)
         private var githubName: TextView = itemView.findViewById(R.id.tv_name)
