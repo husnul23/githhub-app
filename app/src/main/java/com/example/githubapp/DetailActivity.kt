@@ -3,16 +3,12 @@ package com.example.githubapp
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.detail_user.*
-import kotlinx.android.synthetic.main.item_row_user.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.json.JSONObject
 import java.lang.Exception
@@ -47,31 +43,14 @@ class DetailActivity : AppCompatActivity() {
 
         github = intent.getParcelableExtra(EXTRA_GITHUB)!!
 
-        val githubName = findViewById<TextView>(R.id.tv_detail_name)
-        val githubUsername = findViewById<TextView>(R.id.tv_detail_username)
-        val githubLocation = findViewById<TextView>(R.id.tv_detail_location)
-        val githubCompany = findViewById<TextView>(R.id.tv_detail_company)
-        val githubRepository = findViewById<TextView>(R.id.tv_detail_repository)
-
-//        githubName.text = github.name
-        githubUsername.text = github.username
-        githubLocation.text = github.location
-        githubCompany.text = github.company
-        githubRepository.text = github.repository
-        imgProfilePict.setImageResource(github.avatar)
-
-        val username = String()
-
         getUserDetail(github.username)
-
 
     }
 
     private fun getUserDetail(username: String?) {
         val client = AsyncHttpClient()
-//        progressBar.visibility = View.VISIBLE
 
-        val url = "https://api.github.com/search/users?q=$username"
+        val url = "https://api.github.com/users/$username"
         client.addHeader("Authorization", DetailActivity.USER_TOKEN)
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
@@ -83,18 +62,14 @@ class DetailActivity : AppCompatActivity() {
                 val result = String(responseBody)
 
                 Log.d(DetailActivity.TAG, result)
-//                progressBar.visibility = View.INVISIBLE
                 try {
-//
-                    val responseObject = JSONObject(result)
-                    val items = responseObject.getJSONArray("items")
 
                     val item = JSONObject(result)
 
                     val username = item.getString("login")
                     val avatar = item.getString("avatar_url")
-                    val followersList = item.getString("followers_url")
-                    val followingsList = item.getString("followings_url")
+                    val followersList = item.getString("followers")
+                    val followingsList = item.getString("following")
                     val location = item.getString("location")
                     val company = item.getString("company")
                     val fullName = item.getString("name")
@@ -110,7 +85,14 @@ class DetailActivity : AppCompatActivity() {
                     user.name = fullName
                     user.repository = totalRepos
 
-                    detailUserAdapter
+                    tv_detail_username.text = user.username
+                    tv_detail_name.text = user.name
+                    tv_detail_followers.text = user.followers
+                    tv_detail_followings.text = user.followings
+                    tv_detail_company.text = user.company
+                    tv_detail_repository.text = user.repository
+                    tv_detail_location.text = user.location
+
 
                 } catch (e: Exception) {
                     Log.d(TAG, "onSuccess: Gagal......")
@@ -124,7 +106,7 @@ class DetailActivity : AppCompatActivity() {
                 responseBody: ByteArray,
                 error: Throwable?
             ) {
-//                progressBar.visibility = View.INVISIBLE
+
                 Log.d(TAG, "onFailure: Gagal .....")
             }
         })
