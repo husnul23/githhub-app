@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.detail_user.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.json.JSONObject
@@ -94,6 +95,11 @@ class DetailActivity : AppCompatActivity() {
                     tv_detail_location.text = user.location
 
 
+                    Glide.with(this@DetailActivity)
+                        .load(user.avatar)
+                        .apply(RequestOptions().override(100, 100))
+                        .into(imgProfilePict)
+
                 } catch (e: Exception) {
                     Log.d(TAG, "onSuccess: Gagal......")
                     e.printStackTrace()
@@ -120,8 +126,4 @@ class DetailActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
-
-private fun CircleImageView.setImageResource(avatar: String) {
-
 }
