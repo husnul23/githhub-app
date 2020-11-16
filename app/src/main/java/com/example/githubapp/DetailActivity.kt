@@ -30,12 +30,6 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_user)
 
-        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
-        val user = Github()
-        sectionsPagerAdapter.username = user?.username
-        view_pager.adapter = sectionsPagerAdapter
-        tabs.setupWithViewPager(view_pager)
-
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -43,6 +37,11 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
 
         github = intent.getParcelableExtra(EXTRA_GITHUB)!!
+
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
+        sectionsPagerAdapter.username = github?.username
+        view_pager.adapter = sectionsPagerAdapter
+        tabs.setupWithViewPager(view_pager)
 
         getUserDetail(github.username)
 
