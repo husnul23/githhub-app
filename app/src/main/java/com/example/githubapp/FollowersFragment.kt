@@ -9,8 +9,7 @@ import android.view.ViewGroup
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONObject
+import org.json.JSONArray
 import java.lang.Exception
 
 class FollowersFragment : Fragment() {
@@ -19,15 +18,17 @@ class FollowersFragment : Fragment() {
         private val ARG_USERNAME = "username"
         const val USER_TOKEN = "76804862f46181ed1aaa82cf10ca8c691193b982"
         private val TAG = DetailActivity::class.java.simpleName
+
+        fun newInstance(username: String): FollowersFragment {
+            val fragment = FollowersFragment()
+            val bundle = Bundle()
+            bundle.putString(ARG_USERNAME, username)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
-    fun newInstance(username: String): FollowersFragment {
-        val fragment = FollowersFragment()
-        val bundle = Bundle()
-        bundle.putString(ARG_USERNAME, username)
-        fragment.arguments = bundle
-        return fragment
-    }
+    private val listFollowersAdapter = FollowersAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,18 +40,17 @@ class FollowersFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        TODO("akses API dari method getfollowers")
 
         val username = arguments?.getString(ARG_USERNAME)
-        getfollowers(username)
         super.onViewCreated(view, savedInstanceState)
+        getfollowers(username)
     }
 
     private fun getfollowers(username: String?) {
         val client = AsyncHttpClient()
 
 //        progressBar.visibility = View.VISIBLE
-        val url = "https://api.github.com/search/users?q=$username"
+        val url = "https://api.github.com/users/$username/followers"
         client.addHeader("Authorization", FollowersFragment.USER_TOKEN)
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
@@ -59,15 +59,26 @@ class FollowersFragment : Fragment() {
                 headers: Array<out Header>?,
                 responseBody: ByteArray
             ) {
-                progressBar.visibility = View.INVISIBLE
+//                progressBar.visibility = View.INVISIBLE
+                val listFollowers = ArrayList<Github>()
                 val result = String(responseBody)
                 Log.d(FollowersFragment.TAG, result)
                 try {
-                    val item = JSONObject(result)
+                    val items = JSONArray(result)
 
-                    val followersList = item.getString("followers_url")
-                    val user = Github()
-                    user.followers = followersList
+                    for (i in 0 until items.length()) {
+                        val item = items.getJSONObject(i)
+                        val avatar = item.getString("avatar_url")
+                        val username = item.getString("login")
+                        val user = Github()
+
+                        user.username = username
+                        user.avatar = avatar
+                        listFollowers.add(user)
+                    }
+
+                    listFollowersAdapter.listFollower = listFollowers
+
                     Log.d(FollowersFragment.TAG, "onSuccess: Selesai....")
 
                 } catch (e: Exception) {
