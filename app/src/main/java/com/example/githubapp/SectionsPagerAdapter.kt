@@ -10,13 +10,13 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
 
     @StringRes
     private val TAB_TITLES = intArrayOf(R.string.tab_followers, R.string.tab_followings)
-    var username: String? = null
+    var username: String = ""
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
         when (position) {
-            0 -> fragment = FollowersFragment().newInstance(username!!)
-            1 -> fragment = FollowersFragment().newInstance(username!!)
+            0 -> fragment = FollowersFragment.newInstance(username!!)
+            1 -> fragment = FollowingsFragment.newInstance(username!!)
         }
         return fragment as Fragment
     }
