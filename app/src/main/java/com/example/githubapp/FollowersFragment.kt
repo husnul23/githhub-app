@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.fragment_followers.*
 import org.json.JSONArray
 import java.lang.Exception
 
@@ -28,6 +31,7 @@ class FollowersFragment : Fragment() {
         }
     }
 
+    private lateinit var githubFollowers: RecyclerView
     private val listFollowersAdapter = FollowersAdapter()
 
     override fun onCreateView(
@@ -41,9 +45,14 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val username = arguments?.getString(ARG_USERNAME)
         super.onViewCreated(view, savedInstanceState)
+        githubFollowers = rv_followers
+        githubFollowers.setHasFixedSize(true)
+
+        val username = arguments?.getString(ARG_USERNAME)
         getfollowers(username)
+
+        showRecycleList()
     }
 
     private fun getfollowers(username: String?) {
@@ -97,6 +106,11 @@ class FollowersFragment : Fragment() {
                 Log.d(FollowersFragment.TAG, "onFailure: Gagal .....")
             }
         })
+    }
+
+    private fun showRecycleList() {
+        githubFollowers.layoutManager = LinearLayoutManager(activity)
+        githubFollowers.adapter = listFollowersAdapter
     }
 
 }
