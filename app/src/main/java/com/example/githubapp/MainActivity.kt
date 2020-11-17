@@ -3,6 +3,7 @@ package com.example.githubapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -27,6 +28,10 @@ class MainActivity : AppCompatActivity() {
                 navigateToDetail(data)
             }
         })
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
 

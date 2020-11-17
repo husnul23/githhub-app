@@ -16,4 +16,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="black" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#000000</item>
+    </style>
+
 </resources>

@@ -12,6 +12,7 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.fragment_followers.*
+import kotlinx.android.synthetic.main.progress_bar.*
 import org.json.JSONArray
 import java.lang.Exception
 
@@ -57,8 +58,8 @@ class FollowersFragment : Fragment() {
 
     private fun getfollowers(username: String?) {
         val client = AsyncHttpClient()
+//        progressLoadingBar.visibility = View.VISIBLE
 
-//        progressBar.visibility = View.VISIBLE
         val url = "https://api.github.com/users/$username/followers"
         client.addHeader("Authorization", FollowersFragment.USER_TOKEN)
         client.addHeader("User-Agent", "request")
@@ -68,7 +69,7 @@ class FollowersFragment : Fragment() {
                 headers: Array<out Header>?,
                 responseBody: ByteArray
             ) {
-//                progressBar.visibility = View.INVISIBLE
+//                progressLoadingBar.visibility = View.INVISIBLE
                 val listFollowers = ArrayList<Github>()
                 val result = String(responseBody)
                 Log.d(FollowersFragment.TAG, result)
