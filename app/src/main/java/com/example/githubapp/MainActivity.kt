@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.provider.Settings
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private val USER_TOKEN = "token 76804862f46181ed1aaa82cf10ca8c691193b982"
     private lateinit var githubUsers: RecyclerView
 
-    //ini buat nampilin
     private val listUserAdapter = ListUserAdapter().apply {
         setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
             override fun onItemClick(data: Github) {
@@ -90,9 +92,10 @@ class MainActivity : AppCompatActivity() {
                         user.avatar = avatar
                         listUser.add(user)
                     }
-                    //point nomor 3 : nampilin di adapter
+
                     listUserAdapter.listUser = listUser
                 } catch (e: Exception) {
+                    Toast.makeText(this@MainActivity, "Data Tidak ditemukan", Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
                 }
             }
@@ -103,6 +106,7 @@ class MainActivity : AppCompatActivity() {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
+                Toast.makeText(this@MainActivity, "Data Tidak ditemukan", Toast.LENGTH_SHORT).show()
                 progressBar.visibility = View.INVISIBLE
             }
         })
@@ -125,7 +129,16 @@ class MainActivity : AppCompatActivity() {
             android.R.id.home -> {
                 onBackPressed()
             }
+            R.id.action_change_settings -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }
