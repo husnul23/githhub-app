@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:lines="1"
                 android:paddingRight="10dp"
-                android:text="Followers"
+                android:text="@string/followers"
                 android:textSize="15sp" />
             <View
                 android:layout_width="1dp"
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lines="1"
-                android:text="Followings"
+                android:text="@string/followings"
                 android:textSize="15sp" />
         </LinearLayout>
 
@@ -106,7 +106,7 @@
                 android:layout_height="match_parent"
                 android:lines="1"
                 android:paddingRight="10dp"
-                android:text="Company   :"
+                android:text="@string/company"
                 android:textSize="15sp" />
             <TextView
                 android:id="@+id/tv_detail_company"
@@ -127,7 +127,7 @@
                 android:layout_height="match_parent"
                 android:lines="1"
                 android:paddingRight="10dp"
-                android:text="Repository :"
+                android:text="@string/repository"
                 android:textSize="15sp" />
             <TextView
                 android:id="@+id/tv_detail_repository"
