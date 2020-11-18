@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_username"
         android:layout_marginTop="8dp"
-        android:text="Click to Details" />
+        android:text="@string/click_detail" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

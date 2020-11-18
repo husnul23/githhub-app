@@ -1,10 +1,20 @@
-<resources>
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">GithubApp</string>
     <string name="search">Search</string>
     <string name="tab_followers">Followers</string>
     <string name="tab_followings">Followings</string>
     <string name="search_hint">username....</string>
+    <string name="click_detail">CLICK TO DETAILS</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="followers">Followers</string>
+    <string name="followings">Followings</string>
+    <string name="find_username">Find username....</string>
+    <string name="company">Company :</string>
+    <string name="repository">Repository :</string>
+    <string name="change_language_settings">Change Language Settings</string>
     <!-- Other string resources-->
 
     <string-array name="username">
@@ -110,11 +120,7 @@
         <item>@drawable/user9</item>
         <item>@drawable/user10</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="followers">Followers</string>
-    <string name="followings">Followings</string>
-    <string name="find_username">Find username....</string>
+
 
 </resources>
 
