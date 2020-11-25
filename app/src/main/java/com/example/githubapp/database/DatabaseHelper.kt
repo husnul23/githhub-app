@@ -1,9 +1,11 @@
 package com.example.githubapp.database
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
 import com.example.githubapp.database.UserContract.UserColumns.Companion.TABLE_NAME
 
-internal class DatabaseHelper {
+internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
 
@@ -23,11 +25,11 @@ internal class DatabaseHelper {
 
     }
 
-    fun onCreate(db: SQLiteDatabase) {
+    override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(SQL_CREATE_TABLE_GITHUB)
     }
 
-    fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
         onCreate(db)
     }
