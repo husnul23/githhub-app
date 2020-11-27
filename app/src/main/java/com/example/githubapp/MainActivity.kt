@@ -1,5 +1,6 @@
 package com.example.githubapp
 
+import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,13 +10,19 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageHelper
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.githubapp.database.UserContract.UserColumns.Companion.COLUMN_NAME_AVATAR_URL
+import com.example.githubapp.database.UserContract.UserColumns.Companion.COLUMN_NAME_USERNAME
+import com.example.githubapp.database.UserHelper
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_row_user.*
 import org.json.JSONObject
 import java.lang.Exception
 
@@ -23,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     private val USER_TOKEN = "token 76804862f46181ed1aaa82cf10ca8c691193b982"
     private lateinit var githubUsers: RecyclerView
+    private lateinit var userHelper: UserHelper
 
     private val listUserAdapter = ListUserAdapter().apply {
         setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
@@ -45,6 +53,22 @@ class MainActivity : AppCompatActivity() {
 
         githubUsers = findViewById(R.id.rv_github)
         githubUsers.setHasFixedSize(true)
+
+        val username = tv_username.toString()
+        val avatarImage = img_item_photo.toString()
+
+
+        var statusFavorite = false
+        setStatusFavorite(statusFavorite)
+        floatingFav.setOnClickListener {
+            statusFavorite = !statusFavorite
+            val values = ContentValues()
+            values.put(COLUMN_NAME_USERNAME, username)
+            values.put(COLUMN_NAME_AVATAR_URL, avatarImage)
+
+            userHelper.insert(values)
+            setStatusFavorite(statusFavorite)
+        }
 
         showRecycleList()
     }
@@ -140,5 +164,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    private fun setStatusFavorite(statusFavorite: Boolean) {
+        if (statusFavorite == true) {
+            floatingFav
+        } else {
+            floatingUnfav
+        }
     }
 }
