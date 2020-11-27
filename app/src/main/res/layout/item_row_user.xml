@@ -43,10 +43,35 @@
         android:id="@+id/btn_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="160dp"
+        android:text="@string/click_detail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_username"
-        android:layout_marginTop="8dp"
-        android:text="@string/click_detail" />
+        app:layout_constraintTop_toBottomOf="@id/tv_username" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/grey"
+        android:tint="@color/black"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username"
+        app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingUnfav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/grey"
+        android:tint="@color/black"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username"
+        app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
