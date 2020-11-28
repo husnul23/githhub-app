@@ -14,14 +14,15 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
         private const val DATABASE_VERSION = 1
 
         private val SQL_CREATE_TABLE_GITHUB = "CREATE TABLE $TABLE_NAME" +
-                " ${UserContract.UserColumns.COLUMN_NAME_USERNAME} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_FULL_NAME} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_AVATAR_URL} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_LOCATION} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_FOLLOWERS} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_FOLLOWINGS} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_COMPANY} TEXT NOT NULL," +
-                " ${UserContract.UserColumns.COLUMN_NAME_REPOSITORY} TEXT NOT NULL,"
+                " (${UserContract.UserColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_USERNAME} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_FULL_NAME} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_AVATAR_URL} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_LOCATION} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_FOLLOWERS} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_FOLLOWINGS} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_COMPANY} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_REPOSITORY} TEXT)"
 
     }
 

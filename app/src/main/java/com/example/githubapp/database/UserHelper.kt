@@ -4,9 +4,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.githubapp.database.UserContract.UserColumns.Companion.COLUMN_NAME_FULL_NAME
 import com.example.githubapp.database.UserContract.UserColumns.Companion.COLUMN_NAME_USERNAME
 import com.example.githubapp.database.UserContract.UserColumns.Companion.TABLE_NAME
+import com.example.githubapp.database.UserContract.UserColumns.Companion._ID
 import java.sql.SQLException
 
 class UserHelper(context: Context) {
@@ -48,7 +48,7 @@ class UserHelper(context: Context) {
             null,
             null,
             null,
-            "$COLUMN_NAME_FULL_NAME ASC")
+            "$_ID ASC")
     }
 
     fun insert(values: ContentValues?): Long {

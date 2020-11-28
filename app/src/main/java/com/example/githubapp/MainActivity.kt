@@ -1,6 +1,5 @@
 package com.example.githubapp
 
-import android.content.ContentValues
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,13 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageHelper
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubapp.database.UserContract.UserColumns.Companion.COLUMN_NAME_AVATAR_URL
-import com.example.githubapp.database.UserContract.UserColumns.Companion.COLUMN_NAME_USERNAME
 import com.example.githubapp.database.UserHelper
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -31,6 +26,13 @@ class MainActivity : AppCompatActivity() {
     private val USER_TOKEN = "token 76804862f46181ed1aaa82cf10ca8c691193b982"
     private lateinit var githubUsers: RecyclerView
     private lateinit var userHelper: UserHelper
+
+    companion object {
+        const val EXTRA_USER = "extra_user"
+        const val EXTRA_POSITION = "extra_position"
+        const val REQUEST_DELETE = 200
+        const val RESULT_DELETE = 201
+    }
 
     private val listUserAdapter = ListUserAdapter().apply {
         setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
@@ -48,27 +50,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        userHelper = UserHelper(this)
         bindSearchView()
 
         githubUsers = findViewById(R.id.rv_github)
         githubUsers.setHasFixedSize(true)
-
-        val username = tv_username.toString()
-        val avatarImage = img_item_photo.toString()
-
-
-        var statusFavorite = false
-        setStatusFavorite(statusFavorite)
-        floatingFav.setOnClickListener {
-            statusFavorite = !statusFavorite
-            val values = ContentValues()
-            values.put(COLUMN_NAME_USERNAME, username)
-            values.put(COLUMN_NAME_AVATAR_URL, avatarImage)
-
-            userHelper.insert(values)
-            setStatusFavorite(statusFavorite)
-        }
 
         showRecycleList()
     }
@@ -139,6 +125,7 @@ class MainActivity : AppCompatActivity() {
     private fun showRecycleList() {
         githubUsers.layoutManager = LinearLayoutManager(this)
         githubUsers.adapter = listUserAdapter
+        listUserAdapter.bindData(this)
     }
 
     fun navigateToDetail(github: Github) {

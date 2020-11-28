@@ -6,6 +6,7 @@ class UserContract {
     class UserColumns: BaseColumns {
         companion object {
             val TABLE_NAME = "favorite_user"
+            val _ID = "_id"
             val COLUMN_NAME_USERNAME = "username"
             val COLUMN_NAME_AVATAR_URL = "avatar_url"
             val COLUMN_NAME_COMPANY = "company"
