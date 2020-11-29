@@ -27,13 +27,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var githubUsers: RecyclerView
     private lateinit var userHelper: UserHelper
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
-        const val EXTRA_POSITION = "extra_position"
-        const val REQUEST_DELETE = 200
-        const val RESULT_DELETE = 201
-    }
-
     private val listUserAdapter = ListUserAdapter().apply {
         setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
             override fun onItemClick(data: Github) {
@@ -144,6 +137,14 @@ class MainActivity : AppCompatActivity() {
                 val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
                 startActivity(mIntent)
             }
+            R.id.action_favorites -> {
+                val intent = Intent(this, UsersFavoritesActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -151,13 +152,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
         return super.onCreateOptionsMenu(menu)
-    }
-
-    private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite == true) {
-            floatingFav
-        } else {
-            floatingUnfav
-        }
     }
 }
