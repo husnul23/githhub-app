@@ -5,4 +5,15 @@
         android:id="@+id/action_change_settings"
         android:title="@string/change_language_settings"
         app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_favorites"
+        android:title="@string/user_favorites"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        app:showAsAction="always"/>
 </menu>
