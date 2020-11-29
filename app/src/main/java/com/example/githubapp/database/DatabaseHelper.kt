@@ -11,11 +11,11 @@ internal class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATA
 
         private const val DATABASE_NAME = "dbgithub"
 
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 4
 
         private val SQL_CREATE_TABLE_GITHUB = "CREATE TABLE $TABLE_NAME" +
                 " (${UserContract.UserColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " ${UserContract.UserColumns.COLUMN_NAME_USERNAME} TEXT," +
+                " ${UserContract.UserColumns.COLUMN_NAME_USERNAME} TEXT NOT NULL UNIQUE," +
                 " ${UserContract.UserColumns.COLUMN_NAME_FULL_NAME} TEXT," +
                 " ${UserContract.UserColumns.COLUMN_NAME_AVATAR_URL} TEXT," +
                 " ${UserContract.UserColumns.COLUMN_NAME_LOCATION} TEXT," +
