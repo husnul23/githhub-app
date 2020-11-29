@@ -52,7 +52,7 @@ class UserHelper(context: Context) {
     }
 
     fun insert(values: ContentValues?): Long {
-        return database.insert(DATABASE_TABLE, null, values)
+        return database.insertWithOnConflict(DATABASE_TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE)
     }
 
     fun deleteById(username: String): Int {
