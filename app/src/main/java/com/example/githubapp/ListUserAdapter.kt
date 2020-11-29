@@ -82,14 +82,11 @@ class ListUserAdapter : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
             var statusFavorite = false
 
             floatingVaf.setOnClickListener {
-
                 statusFavorite = true
-
                 setStatusFavorite(statusFavorite, it)
             }
 
             floatingUnfav.setOnClickListener {
-//                clickListener.onItemClick(github)
                 val values = ContentValues()
                 values.put(UserContract.UserColumns.COLUMN_NAME_USERNAME, githubUsername.text.toString())
                 values.put(UserContract.UserColumns.COLUMN_NAME_AVATAR_URL, github.avatar)
