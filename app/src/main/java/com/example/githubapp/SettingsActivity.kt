@@ -22,6 +22,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 //            Toast.makeText(activity, "active", Toast.LENGTH_SHORT).show()
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
@@ -37,9 +38,14 @@ class SettingsActivity : AppCompatActivity() {
                 .unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(preferences: SharedPreferences?, key: String?) {
-            val alarmOn = preferences?.getBoolean(key!!, true)
-            Toast.makeText(context, preferences!!.getBoolean(key!!, false).toString(), Toast.LENGTH_SHORT).show()
+        override fun onSharedPreferenceChanged(preferences: SharedPreferences, key: String) {
+            val alarmOn = preferences.getBoolean(key, true)
+            val alarmManager = AlarmManager()
+            if (alarmOn) {
+                alarmManager.setRepeatingAlarm(requireActivity(), AlarmManager.TYPE_REPEATING)
+            } else {
+                alarmManager.cancelAlarm(requireActivity(), AlarmManager.TYPE_REPEATING)
+            }
         }
     }
 
