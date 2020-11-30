@@ -48,7 +48,7 @@ class AlarmManager : BroadcastReceiver() {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
             .setContentTitle(title)
-            .setContentText(message)
+            .setContentText("Alarm Activated")
             .setColor(ContextCompat.getColor(context, android.R.color.transparent))
             .setVibrate(longArrayOf(1000, 1000, 1000, 1000, 1000))
             .setSound(alarmSound)
@@ -76,6 +76,7 @@ class AlarmManager : BroadcastReceiver() {
         val putExtra = intent.putExtra(EXTRA_TYPE, type)
 
         val calendar = Calendar.getInstance()
+<<<<<<< Updated upstream
         calendar.clear()
         calendar.set(Calendar.HOUR_OF_DAY, 21)
         calendar.set(Calendar.MINUTE, 30)
@@ -84,6 +85,14 @@ class AlarmManager : BroadcastReceiver() {
 
         val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+=======
+        calendar.set(Calendar.HOUR_OF_DAY, 9)
+        calendar.set(Calendar.MINUTE, 0)
+        calendar.set(Calendar.SECOND, 0)
+
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
+>>>>>>> Stashed changes
         Toast.makeText(context, "Repeating alarm set up", Toast.LENGTH_SHORT).show()
     }
 
