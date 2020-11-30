@@ -24,7 +24,6 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-//            Toast.makeText(activity, "active", Toast.LENGTH_SHORT).show()
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
         }
 
