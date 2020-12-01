@@ -1,6 +1,10 @@
 package com.example.githubapp.database
 
+import android.net.Uri
 import android.provider.BaseColumns
+
+const val AUTHORITY = "com.example.github"
+const val SCHEME = "content"
 
 class UserContract {
     class UserColumns: BaseColumns {
@@ -15,6 +19,11 @@ class UserContract {
             val COLUMN_NAME_FOLLOWERS = "followers"
             val COLUMN_NAME_REPOSITORY = "public_repos"
             val COLUMN_NAME_FULL_NAME = "name"
+
+            val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
+                .authority(AUTHORITY)
+                .appendPath(TABLE_NAME)
+                .build()
         }
     }
 }
