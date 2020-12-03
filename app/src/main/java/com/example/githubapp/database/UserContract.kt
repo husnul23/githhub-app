@@ -3,8 +3,8 @@ package com.example.githubapp.database
 import android.net.Uri
 import android.provider.BaseColumns
 
-const val AUTHORITY = "com.example.github"
-const val SCHEME = "content"
+const val AUTHORITY = "com.example.githubapp"
+const val SCHEME = "content://"
 
 class UserContract {
     class UserColumns: BaseColumns {
