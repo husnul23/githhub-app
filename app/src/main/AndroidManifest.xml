@@ -6,6 +6,19 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
+    <uses-permission
+        android:name="com.example.githubapp.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <uses-permission
+        android:name="com.example.githubapp.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
+    <queries>
+        <package android:name="com.example.githubapp" />
+    </queries>
+
+
 
     <application
         android:allowBackup="true"
@@ -14,15 +27,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver android:name=".AlarmManager"
+        <provider
+            android:name=".provider.UserContentProvider"
+            android:authorities="com.example.githubapp"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            android:readPermission="com.example.githubapp.READ_DATABASE"
+            android:writePermission="com.example.githubapp.WRITE_DATABASE"/>
+        <receiver
+            android:name=".AlarmManager"
+            android:enabled="true"
+            android:exported="true" />
+
+
+
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".UsersFavoritesActivity"
-            android:theme="@style/no_bar"/>
+            android:theme="@style/no_bar" />
         <activity
             android:name=".DetailActivity"
             android:theme="@style/no_bar" />
