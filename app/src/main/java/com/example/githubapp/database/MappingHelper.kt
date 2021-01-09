@@ -17,15 +17,4 @@ object MappingHelper {
         }
         return userList
     }
-
-    fun mapCursorToObject(notesCursor: Cursor?): Github {
-        var github = Github()
-        notesCursor?.apply {
-            moveToFirst()
-            val username = getString(getColumnIndexOrThrow(UserContract.UserColumns.COLUMN_NAME_USERNAME))
-            val avatar = getString(getColumnIndexOrThrow(UserContract.UserColumns.COLUMN_NAME_AVATAR_URL))
-            github = Github(username = username, avatar = avatar)
-        }
-        return github
-    }
 }
